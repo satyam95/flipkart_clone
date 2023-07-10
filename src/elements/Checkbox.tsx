@@ -4,7 +4,7 @@ type Props = {};
 
 const Checkbox = (props: Props) => {
   return (
-    <div className="flex items-center items-start py-1.5">
+    <div className="flex items-center items-start gap-2 py-1.5">
       <input
         id="checkbox-1"
         aria-describedby="checkbox-1"
@@ -13,7 +13,7 @@ const Checkbox = (props: Props) => {
       />
       <label
         htmlFor="checkbox-1"
-        className="text-[14px] leading-[14px] ml-[11px] text-[#212121]"
+        className="text-[14px] leading-[14px] text-[#212121]"
       >
         checkbox
       </label>

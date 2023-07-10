@@ -11,8 +11,8 @@ const CategoryCard = ({
   categoryTitle,
 }: CategoryCardPropsType) => {
   return (
-    <div className="text-center">
-      <div className="mb-2">
+    <div className="text-center min-w-[70px]">
+      <div className="mb-1 md:mb-2">
         <Image
           src={categoryImageUrl}
           alt={categoryTitle}
@@ -21,7 +21,7 @@ const CategoryCard = ({
           className="mx-auto"
         />
       </div>
-      <div className="font-medium text-sm">{categoryTitle}</div>
+      <div className="font-medium text-xs md:text-sm">{categoryTitle}</div>
     </div>
   );
 };

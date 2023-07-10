@@ -1,9 +1,13 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import ProductCategoryRow from "./ProductCategoryRow";
+import { useAppSelector } from "@/app/store/hooks";
 
 const Header = () => {
+  const productLength = useAppSelector((state) => state.cartArray.productNumber);
+
   return (
     <>
       <div className="bg-[#2874f0] hidden xl:block">
@@ -79,7 +83,7 @@ const Header = () => {
                 </div>
                 <div>
                   <Link href="/cart">
-                    <div className="flex items-center">
+                    <div className="relative flex items-center">
                       <div className="pr-2">
                         <svg
                           className="V3C5bO"
@@ -94,6 +98,7 @@ const Header = () => {
                             fill="#fff"
                           ></path>
                         </svg>
+                        {productLength > 0 ? (<div className="cart-length">{productLength}</div>): ("")}
                       </div>
                       <div className="font-medium text-base leading-5 text-white">
                         Cart

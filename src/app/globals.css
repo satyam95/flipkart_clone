@@ -1,9 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body{
-    font-family: 'Roboto', sans-serif;
-    background-color: #f1f3f6;
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f1f3f6;
+}
+
+.scrollbar-h::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-h {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cart-length{
+  position: absolute;
+    left: 0;
+    top: -14px;
+    text-align: center;
+    border-radius: 7px;
+    width: 18px;
+    height: 18px;
+    background-color: #ff6161;
+    border: 1px solid #fff;
+    font-weight: 400;
+    color: #f0f0f0;
+    line-height: 18px;
+    font-size: 12px;
 }

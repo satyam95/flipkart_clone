@@ -1,5 +1,7 @@
 "use client";
 
+import { useAppDispatch } from "@/app/store/hooks";
+import { addToCart } from "@/app/store/slices/cartSlice";
 import { products } from "@/data/products";
 import Image from "next/image";
 
@@ -10,6 +12,8 @@ function Product({ params }: { params: { id: number } }) {
   const productDetail = products.find(
     (product) => product.id === Number(productId)
   );
+
+  const dispatch = useAppDispatch();
 
   return (
     <main>
@@ -36,7 +40,7 @@ function Product({ params }: { params: { id: number } }) {
               </div>
               <div className="text-3xl text-[#212121] font-normal">₹{productDetail!.price}</div>
               <div className="mt-8">
-                <button className="bg-[#ff9f00] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]">
+                <button onClick={()=> dispatch(addToCart(productDetail))} className="bg-[#ff9f00] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]">
                   <div className="flex items-center">
                     <div className="pr-2">
                       <svg

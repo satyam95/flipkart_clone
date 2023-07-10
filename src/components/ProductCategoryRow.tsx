@@ -9,7 +9,7 @@ const ProductCategoryRow = (props: Props) => {
     <div className="bg-white">
       <div className="container mx-auto">
         <div className="p-2">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between overflow-x-scroll scrollbar-h">
             {categories.map((category) => (
               <CategoryCard
                 key={category.id}

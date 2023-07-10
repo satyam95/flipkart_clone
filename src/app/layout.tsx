@@ -2,6 +2,7 @@ import "./globals.css";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Providers } from "@/app/store/providers";
 
 export const metadata = {
   title: "Flipkart",
@@ -14,12 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body suppressHydrationWarning={true}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </Providers>
   );
 }

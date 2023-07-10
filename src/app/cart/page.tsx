@@ -1,90 +1,175 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import Link from "next/link";
+import {
+  decrementInCart,
+  incrementInCart,
+  removeFromCart,
+} from "../store/slices/cartSlice";
 
-type Props = {};
+const Cart = () => {
+  const [totalPrice, setTotalPrice] = useState(0);
+  const products = useAppSelector((state) => state.cartArray.cart);
+  const productLength = useAppSelector(
+    (state) => state.cartArray.productNumber
+  );
 
-const Cart = (props: Props) => {
+  useEffect(() => {
+    let total = 0;
+    products.forEach((item) => {
+      total += item.price * item.quantity;
+    });
+    setTotalPrice(total);
+  }, [products]);
+
+  const dispatch = useAppDispatch();
+
   return (
     <main>
       <div className="container mx-auto">
-        <div className="m-10">
-          <div className="flex">
-            <div className="m-1.5 bg-white rounded w-2/3 h-full shadow-md">
-              <div className="pt-3">
-                <div className="border-b border-[#f0f0f0] shadow-[0_1px_1px_0_rgba(0,0,0,.2)] p-6">
-                  <div className="flex items-center gap-6">
-                    <div className="w-1/4">
-                      <div className="relative mx-auto h-[200px] w-[200px]">
-                        <Image
-                          src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-                          alt="image"
-                          fill={true}
-                          className="object-contain"
-                        />
+        <div className="m-2 md:m-10">
+          {products.length > 0 ? (
+            <div className="flex flex-col lg:flex-row">
+              <div className="m-1.5 bg-white rounded w-full lg:w-2/3 h-full shadow-md">
+                <div className="pt-3">
+                  {products.map((product) => (
+                    <div
+                      key={product.id}
+                      className="border-b border-[#f0f0f0] shadow-[0_1px_1px_0_rgba(0,0,0,.2)] p-3 md:p-6"
+                    >
+                      <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">
+                        <div className="w-full md:w-1/4">
+                          <div className="relative mx-auto h-[270px] w-[270px] md:h-[150px] md:w-[140px] xl:h-[200px] xl:w-[200px]">
+                            <Image
+                              src={product.thumbnail}
+                              alt={product.title}
+                              fill={true}
+                              className="object-contain"
+                            />
+                          </div>
+                        </div>
+                        <div className="w-full md:w-3/4">
+                          <div className="text-base	text-[#212121]">
+                            {product.title}
+                          </div>
+                          <div className="text-sm text-[#878787] pt-1">
+                            {product.brand}
+                          </div>
+                          <div className="text-sm text-[#878787] pt-1">
+                            {product.category}
+                          </div>
+                          <div className="text-lg font-medium text-[#212121] pt-2">
+                            ₹{product.price}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-6">
+                        <div className="flex items-center">
+                          <button
+                            onClick={() => {
+                              dispatch(decrementInCart(product));
+                            }}
+                            className="font-medium text-black inline-block w-7 h-7 border border-[#c2c2c2] text-base leading-4 rounded-full disabled:border-[#e0e0e0] disabled:text-[#c2c2c2]"
+                            disabled={product.quantity === 1}
+                          >
+                            -
+                          </button>
+                          <div className="flex items-center justify-center font-medium text-black border border-[#c2c2c2] w-12 h-7 text-base leading-4 mx-2">
+                            {product.quantity}
+                          </div>
+                          <button
+                            onClick={() => {
+                              dispatch(incrementInCart(product));
+                            }}
+                            className="font-medium text-black inline-block w-7 h-7 border border-[#c2c2c2] text-base leading-4 rounded-full"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <div
+                          onClick={() => dispatch(removeFromCart(product))}
+                          className="font-medium text-black text-base uppercase cursor-pointer"
+                        >
+                          Remove
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div className="text-base	text-[#212121]">
-                        CADDLE & TOES Famous Car Remote Control 3D Car with LED
-                        Lights, Chargeable
-                      </div>
-                      <div className="text-sm text-[#878787] pt-1">Black</div>
-                      <div className="text-sm text-[#878787] pt-1">
-                        Seller:TiaraCollectionss
-                      </div>
-                      <div className="text-lg font-medium text-[#212121] pt-2">
-                        ₹500
-                      </div>
+                  ))}
+                </div>
+              </div>
+              <div className="m-1.5 bg-white rounded w-full lg:w-1/3 shadow-md h-full">
+                <div className="px-6 py-3 border border-[#f0f0f0]">
+                  <div className="text-base font-medium text-[#878787] uppercase">
+                    Price details
+                  </div>
+                </div>
+                <div className="px-6 pt-2">
+                  <div className="pt-3 py-4 flex justify-between items-center">
+                    <div className="text-base text-[#212121]">
+                      Price ({productLength} items)
+                    </div>
+                    <div className="text-base text-[#212121]">
+                      ₹{totalPrice}
+                    </div>
+                  </div>
+                  <div className="pb-4 flex justify-between items-center">
+                    <div className="text-base text-[#212121]">
+                      Delivery Charges
+                    </div>
+                    <div className="text-base text-[#388e3c]">Free</div>
+                  </div>
+                  <div className="py-6 border-t border-[#e0e0e0] flex justify-between items-center">
+                    <div className="text-base font-medium text-[#212121]">
+                      Total Amount
+                    </div>
+                    <div className="text-base font-medium text-[#212121]">
+                      ₹{totalPrice}
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="shadow-[0_-2px_10px_0_rgba(0,0,0,.1)]">
-                <div className="py-4 px-6 flex justify-end">
-                  <button className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]">
-                    <div className="flex items-center">
-                      <div className="font-medium text-base leading-5 text-white uppercase">
-                        Place Order
+                <div className="shadow-[0_-2px_10px_0_rgba(0,0,0,.1)]">
+                  <div className="py-4 px-6 flex justify-end">
+                    <button className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]">
+                      <div className="flex items-center">
+                        <div className="font-medium text-base leading-5 text-white uppercase">
+                          Place Order
+                        </div>
                       </div>
-                    </div>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="m-1.5 bg-white rounded w-1/3 shadow-md h-full">
-              <div className="px-6 py-3 border border-[#f0f0f0]">
-                <div className="text-base font-medium text-[#878787] uppercase">
-                  Price details
+          ) : (
+            <div className="h-full w-full bg-white">
+              <div className="p-4 md:p-8">
+                <div className="relative mx-auto h-[270px] w-[270px] md:h-[150px] md:w-[140px] xl:h-[200px] xl:w-[200px]">
+                  <Image
+                    src="/assets/cart-empty-image.png"
+                    alt="empty-image"
+                    fill={true}
+                    className="object-contain"
+                  />
                 </div>
-              </div>
-              <div className="px-6 pt-2">
-                <div className="pt-3 py-4 flex justify-between items-center">
-                  <div className="text-base text-[#212121]">
-                    Price (2 items)
-                  </div>
-                  <div className="text-base text-[#212121]">₹9,004</div>
+                <div className="text-lg font-medium text-center">
+                  Your cart is empty.
                 </div>
-                <div className="pb-4 flex justify-between items-center">
-                  <div className="text-base text-[#212121]">Discount</div>
-                  <div className="text-base text-[#388e3c]">− ₹2,700</div>
-                </div>
-                <div className="pb-4 flex justify-between items-center">
-                  <div className="text-base text-[#212121]">
-                    Delivery Charges
-                  </div>
-                  <div className="text-base text-[#388e3c]">Free</div>
-                </div>
-                <div className="py-6 border-t border-[#e0e0e0] flex justify-between items-center">
-                  <div className="text-base font-medium text-[#212121]">
-                    Total Amount
-                  </div>
-                  <div className="text-base font-medium text-[#212121]">
-                    ₹9,004
-                  </div>
+                <div className="pt-4 flex justify-center">
+                  <Link href="/">
+                    <button className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]">
+                      <div className="flex items-center">
+                        <div className="font-medium text-base leading-5 text-white uppercase">
+                          Continue Shopping
+                        </div>
+                      </div>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </main>
