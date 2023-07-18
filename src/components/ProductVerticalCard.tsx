@@ -11,7 +11,7 @@ type ProductCardPropsType = {
   thumbnail: string;
 };
 
-const ProductCard = ({
+const ProductVerticalCard = ({
   id,
   title,
   price,
@@ -43,4 +43,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default ProductVerticalCard;
