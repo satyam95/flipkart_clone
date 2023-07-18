@@ -35,14 +35,81 @@ export default function Home() {
             <div className="font-medium text-lg capitalize">Fliters</div>
           </div>
           <div className="p-4 border-b border-[#f0f0f0]">
+            <div className="mb-[5px] items-center flex justify-between">
+              <div className="font-medium text-xs uppercase text-[#212121]">
+                Price
+              </div>
+              <div className="font-medium text-xs uppercase text-[#2874f0]">
+                Clear
+              </div>
+            </div>
+            <div>
+              <input
+                type="range"
+                id="price"
+                name="price"
+                min="0"
+                max="100"
+                list="markers"
+                step="25"
+                className="w-full"
+              />
+              <datalist id="markers">
+                <option value="0"></option>
+                <option value="25"></option>
+                <option value="50"></option>
+                <option value="75"></option>
+                <option value="100"></option>
+              </datalist>
+            </div>
+            <div className="flex items-center justify-between mt-[5px]">
+              <div>
+                <select className="text-sm leading-6 text-[#212121] border border-[#e0e0e0] rounded px-1 focus:outline-none focus:ring-0">
+                  <option value="Min">Min</option>
+                  <option value="500">₹500</option>
+                  <option value="1000">₹1000</option>
+                  <option value="1500">₹1500</option>
+                </select>
+              </div>
+              <div className="">to</div>
+              <div>
+                <select className="text-sm leading-6 text-[#212121] border border-[#e0e0e0] rounded px-1 focus:outline-none focus:ring-0">
+                  <option value="1500">₹1500</option>
+                  <option value="2000">₹2000</option>
+                  <option value="3000">₹3000</option>
+                  <option value="Max">₹3000+</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="p-4 border-b border-[#f0f0f0]">
+            <div className="font-medium text-xs uppercase text-[#212121] mb-[5px]">
+              Brands
+            </div>
+            <div>
+              <Checkbox labelTitle="Brand 1" />
+              <Checkbox labelTitle="Brand 2" />
+              <Checkbox labelTitle="Brand 3" />
+              <Checkbox labelTitle="Brand 4" />
+            </div>
+          </div>
+          <div className="p-4 border-b border-[#f0f0f0]">
             <div className="font-medium text-xs uppercase text-[#212121] mb-[5px]">
               CUSTOMER RATINGS
             </div>
             <div>
-              <Checkbox />
-              <Checkbox />
-              <Checkbox />
-              <Checkbox />
+              <Checkbox labelTitle="4★ & above" />
+              <Checkbox labelTitle="3★ & above" />
+              <Checkbox labelTitle="2★ & above" />
+              <Checkbox labelTitle="1★ & above" />
+            </div>
+          </div>
+          <div className="p-4 border-b border-[#f0f0f0]">
+            <div className="font-medium text-xs uppercase text-[#212121] mb-[5px]">
+              Availability
+            </div>
+            <div>
+              <Checkbox labelTitle="Exclude Out of Stock" />
             </div>
           </div>
         </div>

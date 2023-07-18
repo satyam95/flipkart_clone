@@ -1,8 +1,10 @@
 import React from "react";
 
-type Props = {};
+type CheckboxProps = {
+  labelTitle: string;
+}
 
-const Checkbox = (props: Props) => {
+const Checkbox = ({labelTitle}: CheckboxProps) => {
   return (
     <div className="flex items-center items-start gap-2 py-1.5">
       <input
@@ -15,7 +17,7 @@ const Checkbox = (props: Props) => {
         htmlFor="checkbox-1"
         className="text-[14px] leading-[14px] text-[#212121]"
       >
-        checkbox
+        {labelTitle}
       </label>
     </div>
   );
