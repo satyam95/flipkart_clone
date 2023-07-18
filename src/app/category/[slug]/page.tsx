@@ -6,7 +6,7 @@ import { products } from "@/data/products";
 import Checkbox from "@/elements/Checkbox";
 import React, { ChangeEvent, useState } from "react";
 
-const page = () => {
+const Category = () => {
     const [gridView, setGridView] = useState(true);
     const [sorting, setSorting] = useState("");
     const [sortedProducts, setSortedProducts] = useState(products);
@@ -229,4 +229,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Category;
