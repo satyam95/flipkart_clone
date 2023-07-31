@@ -22,7 +22,7 @@ interface ProductsType {
 const ProductGridView = ({ products }: ProductsType) => {
   return (
     <div className="flex flex-wrap">
-      {products.map((product) => (
+      {products?.map((product) => (
         <div key={product.id} className="w-1/2 md:w-3/12">
           <ProductVerticalCard
             id={product.id}

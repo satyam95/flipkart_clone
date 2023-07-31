@@ -2,31 +2,101 @@
 
 import ProductGridView from "@/components/ProductGridView";
 import ProductListView from "@/components/ProductListView";
-import { products } from "@/data/products";
 import Checkbox from "@/elements/Checkbox";
-import React, { ChangeEvent, useState } from "react";
+import { getProducts } from "@/hooks/getProducts";
+import React, { useState } from "react";
 
-const Category = () => {
-    const [gridView, setGridView] = useState(true);
-    const [sorting, setSorting] = useState("");
-    const [sortedProducts, setSortedProducts] = useState(products);
-  
-    const setView = () => {
-      setGridView(!gridView);
-    };
-  
-    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-      const selectValue = e.target.value;
-      setSorting(selectValue);
-      const tempArray = products;
-      if (selectValue === "low") {
-        tempArray.sort((product1, product2) => product1.price - product2.price);
-      } else {
-        tempArray.sort((product1, product2) => product2.price - product1.price);
-      }
-      setSortedProducts(tempArray);
-    };
-    
+interface ProductType {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: any[];
+}
+
+interface ProductsType {
+  products: ProductType[] | undefined;
+}
+
+const Category = ({ params }: { params: { slug: string } }) => {
+  const categorySlug = params.slug;
+
+  const { data, isLoading } = getProducts(categorySlug);
+
+  const [gridView, setGridView] = useState(true);
+
+  const [sortingOption, setSortingOption] = useState("");
+
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+
+  const setView = () => {
+    setGridView(!gridView);
+  };
+
+  const handleSortingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortingOption(event.target.value);
+  };
+
+  const getUniqueBrandNames = (products: ProductType[]): string[] => {
+    const brandSet = new Set<string>();
+    products.forEach((product) => {
+      brandSet.add(product.brand);
+    });
+    return Array.from(brandSet);
+  };
+
+  const handleBrandChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Brand checkbox clicked!");
+    const { value } = event.target;
+    console.log(value);
+    setSelectedBrands((prevBrands) =>
+      prevBrands.includes(value)
+        ? prevBrands.filter((brand) => brand !== value)
+        : [...prevBrands, value]
+    );
+  };
+
+  const applyFilters = (products: ProductType[]): ProductType[] => {
+    let filteredProducts = products.slice();
+
+    // Filter based on selected brands
+    if (selectedBrands.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        selectedBrands.includes(product.brand)
+      );
+    }
+
+    return filteredProducts;
+  };
+
+  const applySorting = (
+    products: ProductType[],
+    sortingOption: string
+  ): ProductType[] => {
+    if (sortingOption === "high") {
+      return products.slice().sort((a, b) => b.price - a.price);
+    } else if (sortingOption === "low") {
+      return products.slice().sort((a, b) => a.price - b.price);
+    } else {
+      // By default, return the original order
+      return products;
+    }
+  };
+
+  const uniqueBrands = getUniqueBrandNames(data?.products || []);
+  const filteredData = applyFilters(data?.products || []);
+  const sortedProducts = applySorting(filteredData, sortingOption);
+
+  console.log(sortedProducts);
+
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <main>
       <div className="max-w-[1440px] w-full mx-auto">
@@ -37,65 +107,27 @@ const Category = () => {
                 <div className="font-medium text-lg capitalize">Fliters</div>
               </div>
               <div className="p-4 border-b border-[#f0f0f0]">
-                <div className="mb-[5px] items-center flex justify-between">
-                  <div className="font-medium text-xs uppercase text-[#212121]">
-                    Price
-                  </div>
-                  <div className="font-medium text-xs uppercase text-[#2874f0]">
-                    Clear
-                  </div>
+                <div className="font-medium text-xs uppercase text-[#212121] mb-[5px]">
+                  Price
                 </div>
-                <div>
-                  <input
-                    type="range"
-                    id="price"
-                    name="price"
-                    min="0"
-                    max="100"
-                    list="markers"
-                    step="25"
-                    className="w-full"
-                  />
-                  <datalist id="markers">
-                    <option value="0"></option>
-                    <option value="25"></option>
-                    <option value="50"></option>
-                    <option value="75"></option>
-                    <option value="100"></option>
-                  </datalist>
-                </div>
-                <div className="flex items-center justify-between mt-[5px]">
-                  <div>
-                    <select className="text-sm leading-6 text-[#212121] border border-[#e0e0e0] rounded px-1 focus:outline-none focus:ring-0">
-                      <option value="Min">Min</option>
-                      <option value="500">₹500</option>
-                      <option value="1000">₹1000</option>
-                      <option value="1500">₹1500</option>
-                    </select>
-                  </div>
-                  <div className="">to</div>
-                  <div>
-                    <select className="text-sm leading-6 text-[#212121] border border-[#e0e0e0] rounded px-1 focus:outline-none focus:ring-0">
-                      <option value="1500">₹1500</option>
-                      <option value="2000">₹2000</option>
-                      <option value="3000">₹3000</option>
-                      <option value="Max">₹3000+</option>
-                    </select>
-                  </div>
-                </div>
+                
               </div>
               <div className="p-4 border-b border-[#f0f0f0]">
                 <div className="font-medium text-xs uppercase text-[#212121] mb-[5px]">
                   Brands
                 </div>
                 <div>
-                  <Checkbox labelTitle="Brand 1" />
-                  <Checkbox labelTitle="Brand 2" />
-                  <Checkbox labelTitle="Brand 3" />
-                  <Checkbox labelTitle="Brand 4" />
+                  {uniqueBrands.map((brand) => (
+                    <Checkbox
+                      key={brand}
+                      labelTitle={brand}
+                      checked={selectedBrands.includes(brand)}
+                      onChange={handleBrandChange}
+                    />
+                  ))}
                 </div>
               </div>
-              <div className="p-4 border-b border-[#f0f0f0]">
+              {/* <div className="p-4 border-b border-[#f0f0f0]">
                 <div className="font-medium text-xs uppercase text-[#212121] mb-[5px]">
                   CUSTOMER RATINGS
                 </div>
@@ -103,7 +135,7 @@ const Category = () => {
                   <Checkbox labelTitle="4★ & above" />
                   <Checkbox labelTitle="3★ & above" />
                   <Checkbox labelTitle="2★ & above" />
-                  <Checkbox labelTitle="1★ & above" />
+                  <Checkbox labelTitle="1★ & above" /> 
                 </div>
               </div>
               <div className="p-4 border-b border-[#f0f0f0]">
@@ -111,13 +143,15 @@ const Category = () => {
                   Availability
                 </div>
                 <div>
-                  <Checkbox labelTitle="Exclude Out of Stock" />
+                  <Checkbox labelTitle="Exclude Out of Stock" /> 
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="m-1.5 bg-white rounded w-full">
               <div className="px-2.5 pt-3 pb-1">
-                <div className="font-medium text-lg capitalize">Fliters</div>
+                <div className="font-medium text-lg capitalize">
+                  {categorySlug}
+                </div>
               </div>
               <div className="px-2.5 py-3 items-center flex justify-between border-b border-[#e0e0e0]">
                 <div className="block lg:hidden">
@@ -197,15 +231,15 @@ const Category = () => {
                 </div>
                 <div>
                   <label
-                    htmlFor="countries"
+                    htmlFor="sortingOptions"
                     className="block mb-2 text-sm font-medium text-gray-900 sr-only"
                   >
                     Select an option
                   </label>
                   <select
-                    id="countries"
-                    value={sorting}
-                    onChange={handleChange}
+                    id="sortingOptions"
+                    value={sortingOption}
+                    onChange={handleSortingChange}
                     className="py-1.5 px-2 border border-gray-400 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0"
                   >
                     <option value="" disabled>

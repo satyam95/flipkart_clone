@@ -22,7 +22,7 @@ interface ProductsType {
 const ProductListView = ({ products }: ProductsType) => {
   return (
     <>
-      {products.map((product) => (
+      {products?.map((product) => (
         <ProductHorizontalCard
           key={product.id}
           id={product.id}

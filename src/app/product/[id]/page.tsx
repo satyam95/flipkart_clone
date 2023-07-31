@@ -1,12 +1,13 @@
 "use client";
 
+import React from "react";
+
+import { products } from "@/data/products";
+
+import ProductGallery from "@/components/ProductGallery";
+
 import { useAppDispatch } from "@/app/store/hooks";
 import { addToCart } from "@/app/store/slices/cartSlice";
-import ProductGallery from "@/components/ProductGallery";
-import { products } from "@/data/products";
-import Image from "next/image";
-
-import React from "react";
 
 function Product({ params }: { params: { id: number } }) {
   const productId = params.id;

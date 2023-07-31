@@ -2,9 +2,8 @@ import React from "react";
 import CategoryCard from "./CategoryCard";
 import { categories } from "@/data/categories";
 
-type Props = {};
 
-const ProductCategoryRow = (props: Props) => {
+const ProductCategoryRow = () => {
   return (
     <div className="bg-white">
       <div className="container mx-auto">
@@ -13,6 +12,7 @@ const ProductCategoryRow = (props: Props) => {
             {categories.map((category) => (
               <CategoryCard
                 key={category.id}
+                slug={category.slug}
                 categoryImageUrl={category.thumbnailUrl}
                 categoryTitle={category.title}
               />

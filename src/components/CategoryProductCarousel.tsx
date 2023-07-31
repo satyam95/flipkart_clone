@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,55 +10,64 @@ import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 
 import CategoryProductCarouselCard from "./CategoryProductCarouselCard";
+import { getProducts } from "@/hooks/getProducts";
+import Link from "next/link";
 
-const CategoryProductCarousel = () => {
+interface ProductCarouselTypes {
+  title: string;
+  categorySlug: string;
+}
+
+const CategoryProductCarousel = ({
+  title,
+  categorySlug,
+}: ProductCarouselTypes) => {
+  const { data, isLoading } = getProducts(categorySlug);
   return (
     <div className="my-2 bg-white rounded">
       <div className="border-b border-[#0000001a]">
         <div className="px-5 py-4 items-center flex justify-between">
           <div className="text-[22px] leading-[32px] font-medium text-[#212121]">
-            Laptop
+            {title}
           </div>
           <div>
-            <button className="bg-[#2874f0] text-white shadow-[0_2px_4px_0_rgba(0,0,0,.2)] text-[13px] font-medium leading-4 px-5 py-3 uppercase rounded-sm">
-              View all
-            </button>
+            <Link href={`/category/${categorySlug}`}>
+              <button className="bg-[#2874f0] text-white shadow-[0_2px_4px_0_rgba(0,0,0,.2)] text-[13px] font-medium leading-4 px-5 py-3 uppercase rounded-sm">
+                View all
+              </button>
+            </Link>
           </div>
         </div>
       </div>
       <div className="px-5 py-4">
-        <Swiper
-          slidesPerView={7}
-          spaceBetween={20}
-          className="mySwiper"
-          navigation={true}
-          modules={[Navigation]}
-        >
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <CategoryProductCarouselCard />
-          </SwiperSlide>
-        </Swiper>
+        {isLoading ? (
+          "Content is loading"
+        ) : (
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={20}
+            className="mySwiper"
+            navigation={true}
+            modules={[Navigation]}
+          >
+            {data!.products.map(
+              (product: {
+                id: number;
+                title: string;
+                thumbnail: string;
+                price: number;
+              }) => (
+                <SwiperSlide key={product.id}>
+                  <CategoryProductCarouselCard
+                    title={product.title}
+                    thumbnail={product.thumbnail}
+                    price={product.price}
+                  />
+                </SwiperSlide>
+              )
+            )}
+          </Swiper>
+        )}
       </div>
     </div>
   );
