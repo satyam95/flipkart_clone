@@ -13,9 +13,13 @@ const Category = ({ params }: { params: { slug: string } }) => {
   return (
     <main>
       {isMobile ? (
-        <DesktopCategoryView slug={categorySlug} />
+        <div>
+          <DesktopCategoryView slug={categorySlug} />
+        </div>
       ) : (
-        <MobileCategoryView slug={categorySlug} />
+        <div>
+          <MobileCategoryView slug={categorySlug} />
+        </div>
       )}
     </main>
   );

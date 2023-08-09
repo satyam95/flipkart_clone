@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ProductGridView from "./ProductGridView";
 import ProductListView from "./ProductListView";
 import Checkbox from "@/elements/Checkbox";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface ProductType {
   id: number;
@@ -144,7 +145,7 @@ const MobileCategoryView = ({ slug }: { slug: string }) => {
   const productsToRender = filteredProducts.length > 0 ? filteredProducts : sortedProducts;
 
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>
