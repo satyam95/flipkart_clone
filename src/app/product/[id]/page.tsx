@@ -1,22 +1,20 @@
 "use client";
 
 import React from "react";
-
-import { products } from "@/data/products";
-
 import ProductGallery from "@/components/ProductGallery";
 
 import { useAppDispatch } from "@/app/store/hooks";
 import { addToCart } from "@/app/store/slices/cartSlice";
+import { getProductById } from "@/hooks/getProductById";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 function Product({ params }: { params: { id: number } }) {
   const productId = params.id;
-  const productDetail = products.find(
-    (product) => product.id === Number(productId)
-  );
+  const { data, isLoading } = getProductById(productId);
 
   const dispatch = useAppDispatch();
 
+  if (isLoading) return <LoadingSpinner />;
   return (
     <main>
       <div className="m-1.5 bg-white rounded">
@@ -24,24 +22,24 @@ function Product({ params }: { params: { id: number } }) {
           <div className="py-6">
             <div className="flex items-center flex-col md:flex-row md:gap-8">
               <div className=" w-full md:w-3/5">
-                <ProductGallery images={productDetail!.images} />
+                <ProductGallery images={data!.images} />
               </div>
               <div className="w-full p-4 md:w-3/5">
                 <div className="font-medium text-base text-[#878787]">
-                  {productDetail!.brand}
+                  {data!.brand}
                 </div>
                 <h1 className="text-lg text-[#212121] font-normal">
-                  {productDetail!.title}
+                  {data!.title}
                 </h1>
                 <div className="text-[#26a541] font-medium text-base">
                   Special price
                 </div>
                 <div className="text-3xl text-[#212121] font-normal">
-                  ₹{productDetail!.price}
+                  ₹{data!.price}
                 </div>
                 <div className="mt-8">
                   <button
-                    onClick={() => dispatch(addToCart(productDetail))}
+                    onClick={() => dispatch(addToCart(data))}
                     className="bg-[#ff9f00] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]"
                   >
                     <div className="flex items-center">
