@@ -8,9 +8,11 @@ import {
   incrementInCart,
   removeFromCart,
 } from "../store/slices/cartSlice";
+import { useSession } from "next-auth/react";
 
 const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
+  const { status, data: session } = useSession();
   const products = useAppSelector((state) => state.cartArray.cart);
   const productLength = useAppSelector(
     (state) => state.cartArray.productNumber
@@ -131,7 +133,10 @@ const Cart = () => {
                 </div>
                 <div className="shadow-[0_-2px_10px_0_rgba(0,0,0,.1)]">
                   <div className="py-4 px-6 flex justify-end">
-                    <button className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]">
+                    <button
+                      className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]"
+                      disabled={status === "authenticated" ? false : true}
+                    >
                       <div className="flex items-center">
                         <div className="font-medium text-base leading-5 text-white uppercase">
                           Place Order

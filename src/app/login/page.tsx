@@ -1,3 +1,6 @@
+"use client";
+import SignInAuthForm from "@/components/SignInAuthForm";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 
@@ -27,7 +30,27 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            <div className="w-3/5"></div>
+            <div className="w-3/5 h-inherit">
+              <div className="flex justify-center items-center h-full w-full flex-col p-10">
+                <div className="w-full">
+                  <SignInAuthForm />
+                </div>
+                <div className="text-sm py-4 font-medium">Or</div>
+                <button
+                  onClick={() => signIn("google")}
+                  className="px-10 py-1.5 text-sm border border-[#E0E0CF] flex justify-center items-center w-full"
+                >
+                  <Image
+                    src="/assets/google.svg"
+                    alt="google icon"
+                    width={30}
+                    height={30}
+                    className="pr-2"
+                  />
+                  Sign with Google
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -5,9 +5,15 @@ import React from "react";
 import ProductCategoryRow from "./ProductCategoryRow";
 import { useAppSelector } from "@/app/store/hooks";
 import SearchBar from "./SearchBar";
+import { useSession } from "next-auth/react";
+import AuthMenuBlock from "./AuthMenuBlock";
 
 const Header = () => {
-  const productLength = useAppSelector((state) => state.cartArray.productNumber);
+  const { status, data: session } = useSession();
+
+  const productLength = useAppSelector(
+    (state) => state.cartArray.productNumber
+  );
 
   return (
     <>
@@ -30,11 +36,19 @@ const Header = () => {
                 <SearchBar />
               </div>
               <div className="gap-4 w-full flex items-center justify-between">
-                <div>
-                  <button className="px-10 py-1.5 rounded-sm bg-white text-[#2874f0] font-medium text-base leading-5">
-                    Login
-                  </button>
-                </div>
+                {status === "authenticated" ? (
+                  <AuthMenuBlock username={session?.user?.name!} />
+                ) : (
+                  <div>
+                    <Link
+                      href="/login"
+                      className="px-10 py-1.5 rounded-sm bg-white text-[#2874f0] font-medium text-base leading-5"
+                    >
+                      Login
+                    </Link>
+                  </div>
+                )}
+
                 <div>
                   <div className="flex items-center gap-4">
                     <div className="font-medium text-base leading-5 text-white">
@@ -62,7 +76,11 @@ const Header = () => {
                             fill="#fff"
                           ></path>
                         </svg>
-                        {productLength > 0 ? (<div className="cart-length">{productLength}</div>): ("")}
+                        {productLength > 0 ? (
+                          <div className="cart-length">{productLength}</div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                       <div className="font-medium text-base leading-5 text-white">
                         Cart
@@ -118,9 +136,12 @@ const Header = () => {
               </svg>
             </div>
             <div>
-              <button className="px-6 py-1.5 rounded-sm bg-transprent text-white font-medium text-base leading-5">
+              <Link
+                href="/login"
+                className="px-6 py-1.5 rounded-sm bg-transprent text-white font-medium text-base leading-5"
+              >
                 Login
-              </button>
+              </Link>
             </div>
           </div>
         </div>
