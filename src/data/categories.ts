@@ -22,14 +22,14 @@ export const categories = [
   },
   {
     id: 4,
-    title: "Electronics",
+    title: "Laptops",
     slug: "laptops",
     thumbnailUrl:
       "https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100",
   },
   {
     id: 5,
-    title: "Home & Furniture",
+    title: "Furniture",
     slug: "furniture",
     thumbnailUrl:
       "https://rukminim1.flixcart.com/flap/128/128/image/ab7e2b022a4587dd.jpg?q=100",
@@ -57,7 +57,7 @@ export const categories = [
   },
   {
     id: 9,
-    title: "Beauty, Top & More",
+    title: "Skincare",
     slug: "skincare",
     thumbnailUrl:
       "https://rukminim1.flixcart.com/flap/128/128/image/dff3f7adcf3a90c6.png?q=100",

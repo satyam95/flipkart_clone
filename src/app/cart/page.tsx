@@ -9,6 +9,18 @@ import {
   removeFromCart,
 } from "../store/slices/cartSlice";
 import { useSession } from "next-auth/react";
+import { loadStripe } from "@stripe/stripe-js";
+
+
+interface CartStateType {
+  id: number;
+  title: string;
+  price: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  quantity: number;
+}
 
 const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -27,6 +39,31 @@ const Cart = () => {
   }, [products]);
 
   const dispatch = useAppDispatch();
+
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  );
+
+  const handleCheckout = async (products: CartStateType[]) => {
+    const stripe = await stripePromise;
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: products, email: session?.user?.email }),
+    });
+
+    const checkoutSessions = await response.json();
+    console.log("Checkout Sessions:", checkoutSessions);
+
+    const result: any = await stripe?.redirectToCheckout({
+      sessionId: checkoutSessions.id,
+    });
+    if (result.error) {
+      alert(result?.error?.message);
+    }
+  };
 
   return (
     <main>
@@ -136,6 +173,7 @@ const Cart = () => {
                     <button
                       className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]"
                       disabled={status === "authenticated" ? false : true}
+                      onClick={() => {handleCheckout(products)}}
                     >
                       <div className="flex items-center">
                         <div className="font-medium text-base leading-5 text-white uppercase">
