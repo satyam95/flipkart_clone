@@ -11,7 +11,6 @@ import {
 import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
 
-
 interface CartStateType {
   id: number;
   title: string;
@@ -168,12 +167,18 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <div className="shadow-[0_-2px_10px_0_rgba(0,0,0,.1)]">
-                  <div className="py-4 px-6 flex justify-end">
+                <div className="py-4 px-6 shadow-[0_-2px_10px_0_rgba(0,0,0,.1)]">
+                  <div className="flex justify-center">
                     <button
-                      className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]"
+                      className={`px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)] ${
+                        status === "authenticated"
+                          ? "bg-[#fb641b]"
+                          : "bg-slate-500 cursor-not-allowed"
+                      }`}
                       disabled={status === "authenticated" ? false : true}
-                      onClick={() => {handleCheckout(products)}}
+                      onClick={() => {
+                        handleCheckout(products);
+                      }}
                     >
                       <div className="flex items-center">
                         <div className="font-medium text-base leading-5 text-white uppercase">
@@ -182,6 +187,17 @@ const Cart = () => {
                       </div>
                     </button>
                   </div>
+                  {status === "authenticated" ? (
+                    ""
+                  ) : (
+                    <div className="text-xs text-center pt-0.5">
+                      Please
+                      <span className="text-[#fb641b] underline underline-offset-2">
+                        <Link href="/login"> log in </Link>
+                      </span>
+                      to place order.
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -30,7 +30,7 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            <div className="w-3/5 h-inherit">
+            <div className="w-3/5 h-inherit relative">
               <div className="flex justify-center items-center h-full w-full flex-col p-10">
                 <div className="w-full">
                   <SignInAuthForm />
@@ -49,6 +49,11 @@ const Login = () => {
                   />
                   Sign with Google
                 </button>
+              </div>
+              <div className="absolute right-5 bottom-5 border shadow rounded p-3">
+                <h2 className="text-sm">Use this credentials to login</h2>
+                <p className="text-xs">Email Address: john@gmail.com</p>
+                <p className="text-xs">Password: 1234</p>
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@ export const categories = [
   {
     id: 1,
     title: "Grocery",
-    slug:"groceries",
+    slug: "groceries",
     thumbnailUrl:
       "https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100",
   },
@@ -38,29 +38,25 @@ export const categories = [
     id: 6,
     title: "Home Decoration",
     slug: "home-decoration",
-    thumbnailUrl:
-      "https://rukminim1.flixcart.com/flap/128/128/image/0ff199d1bd27eb98.png?q=100",
+    thumbnailUrl: "/assets/home-decor.png",
   },
   {
     id: 7,
     title: "Automotive",
     slug: "automotive",
-    thumbnailUrl:
-      "https://rukminim1.flixcart.com/flap/128/128/image/71050627a56b4693.png?q=100",
+    thumbnailUrl: "/assets/automotive.png",
   },
   {
     id: 8,
     title: "Sunglasses",
     slug: "sunglasses",
-    thumbnailUrl:
-      "https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100",
+    thumbnailUrl: "/assets/sunflasses.png",
   },
   {
     id: 9,
     title: "Skincare",
     slug: "skincare",
-    thumbnailUrl:
-      "https://rukminim1.flixcart.com/flap/128/128/image/dff3f7adcf3a90c6.png?q=100",
+    thumbnailUrl: "/assets/skin-care.png",
   },
   {
     id: 10,
