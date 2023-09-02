@@ -13,7 +13,7 @@ const CategoryProductCarouselCard = ({
   price,
 }: ProductTypes) => {
   return (
-    <div className="py-6 px-4 w-full">
+    <div className="py-6 px-4 w-1/2 md:w-full">
       <div className="relative w-full h-[150px] md:h-[150px]">
         <Image
           src={thumbnail}

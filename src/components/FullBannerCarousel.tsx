@@ -27,32 +27,32 @@ const FullBannerCarousel = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <div className="relative w-full h-[150px] md:h-[233.5px]">
+          <div className="relative w-full h-[188px] md:h-[233.5px]">
             <Image
               src="https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/85065925cbc15b54.png"
               alt="image"
               fill={true}
-              className="object-contain"
+              className="object-cover md:object-contain"
             />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="relative w-full h-[150px] md:h-[233.5px]">
+          <div className="relative w-full h-[188px] md:h-[233.5px]">
             <Image
               src="https://rukminim2.flixcart.com/fk-p-flap/1688/280/image/e85deb31304ab149.png"
               alt="image"
               fill={true}
-              className="object-contain"
+              className="object-cover md:object-contain"
             />
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="relative w-full h-[150px] md:h-[233.5px]">
+          <div className="relative w-full h-[188px] md:h-[233.5px]">
             <Image
               src="https://rukminim2.flixcart.com/fk-p-flap/1688/280/image/71e7b4e6074fa9ac.png"
               alt="image"
               fill={true}
-              className="object-contain"
+              className="object-cover md:object-contain"
             />
           </div>
         </SwiperSlide>

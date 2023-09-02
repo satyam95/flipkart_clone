@@ -7,12 +7,15 @@ import { useAppDispatch } from "@/app/store/hooks";
 import { addToCart } from "@/app/store/slices/cartSlice";
 import { getProductById } from "@/hooks/getProductById";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { useRouter } from "next/navigation";
 
 function Product({ params }: { params: { id: number } }) {
   const productId = params.id;
   const { data, isLoading } = getProductById(productId);
 
   const dispatch = useAppDispatch();
+  const router = useRouter()
+
 
   if (isLoading) return <LoadingSpinner />;
   return (
@@ -39,7 +42,10 @@ function Product({ params }: { params: { id: number } }) {
                 </div>
                 <div className="mt-8">
                   <button
-                    onClick={() => dispatch(addToCart(data))}
+                    onClick={() => {
+                      dispatch(addToCart(data));
+                      router.push("/cart");
+                    }}
                     className="bg-[#ff9f00] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]"
                   >
                     <div className="flex items-center">

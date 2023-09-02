@@ -9,8 +9,8 @@ const Login = () => {
     <main>
       <div className="max-w-[1440px] w-full mx-auto">
         <div className="m-3">
-          <div className="max-w-[840px] min-h-[500px] mx-auto bg-white shadow-[0_2px_4px_0_rgba(0,0,0,.08)] rounded-sm flex">
-            <div className="w-2/5 bg-[#2874f0] h-inherit shadow-[0_2px_4px_0_rgba(0,0,0,.08)]">
+          <div className="max-w-[840px] min-h-[500px] mx-auto bg-white shadow-[0_2px_4px_0_rgba(0,0,0,.08)] rounded-sm flex flex-col md:flex-row">
+            <div className="hidden md:block w-full md:w-2/5 bg-[#2874f0] h-inherit shadow-[0_2px_4px_0_rgba(0,0,0,.08)]">
               <div className="px-10 py-6 flex flex-col justify-between h-full">
                 <div>
                   <h2 className="font-medium text-white text-2xl">Login</h2>
@@ -30,7 +30,7 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            <div className="w-3/5 h-inherit relative">
+            <div className="w-full min-h-[500px] flex justify-center items-center md:w-3/5 h-inherit relative">
               <div className="flex justify-center items-center h-full w-full flex-col p-10">
                 <div className="w-full">
                   <SignInAuthForm />

@@ -69,17 +69,17 @@ const Cart = () => {
       <div className="container mx-auto">
         <div className="m-2 md:m-10">
           {products.length > 0 ? (
-            <div className="flex flex-col lg:flex-row">
-              <div className="m-1.5 bg-white rounded w-full lg:w-2/3 h-full shadow-md">
+            <div className="flex flex-col lg:flex-row gap-2 md:gap-0">
+              <div className="md:m-1.5 bg-white rounded w-full lg:w-2/3 h-full shadow-md">
                 <div className="pt-3">
                   {products.map((product) => (
                     <div
                       key={product.id}
                       className="border-b border-[#f0f0f0] shadow-[0_1px_1px_0_rgba(0,0,0,.2)] p-3 md:p-6"
                     >
-                      <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6">
+                      <div className="flex flex-row items-center gap-3 md:gap-6">
                         <div className="w-full md:w-1/4">
-                          <div className="relative mx-auto h-[270px] w-[270px] md:h-[150px] md:w-[140px] xl:h-[200px] xl:w-[200px]">
+                          <div className="relative mx-auto h-[180px] w-[180px] md:h-[150px] md:w-[140px] xl:h-[200px] xl:w-[200px]">
                             <Image
                               src={product.thumbnail}
                               alt={product.title}
@@ -137,7 +137,7 @@ const Cart = () => {
                   ))}
                 </div>
               </div>
-              <div className="m-1.5 bg-white rounded w-full lg:w-1/3 shadow-md h-full">
+              <div className="md:m-1.5 bg-white rounded w-full lg:w-1/3 shadow-md h-full">
                 <div className="px-6 py-3 border border-[#f0f0f0]">
                   <div className="text-base font-medium text-[#878787] uppercase">
                     Price details

@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Navigation } from "swiper/modules";
+import { Grid, Navigation } from "swiper/modules";
 
 import CategoryProductCarouselCard from "./CategoryProductCarouselCard";
 import { getProducts } from "@/hooks/getProducts";
@@ -39,16 +39,16 @@ const CategoryProductCarousel = ({
           </div>
         </div>
       </div>
-      <div className="px-5 py-4">
+      <div className="hidden md:block px-5 py-4">
         {isLoading ? (
           "Content is loading"
         ) : (
           <Swiper
             slidesPerView={4}
             spaceBetween={20}
-            className="mySwiper"
             navigation={true}
             modules={[Navigation]}
+            className="mySwiper"
           >
             {data!.products.map(
               (product: {
@@ -68,6 +68,27 @@ const CategoryProductCarousel = ({
             )}
           </Swiper>
         )}
+      </div>
+      <div className="px-3 py-2 flex flex-wrap">
+        {isLoading
+          ? "Content is loading"
+          : data!.products
+              .slice(0, 4)
+              .map(
+                (product: {
+                  id: number;
+                  title: string;
+                  thumbnail: string;
+                  price: number;
+                }) => (
+                  <CategoryProductCarouselCard
+                    key={product.id}
+                    title={product.title}
+                    thumbnail={product.thumbnail}
+                    price={product.price}
+                  />
+                )
+              )}
       </div>
     </div>
   );

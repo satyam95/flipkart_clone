@@ -83,6 +83,19 @@ body {
   display: none !important;
 }
 
+@media (max-width: 767px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .swiper-container {
+    width: 640px;
+  }
+}
+
 /* Loading Spiner */
 
 .lds-ring {

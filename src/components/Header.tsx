@@ -119,8 +119,9 @@ const Header = () => {
               </Link>
             </div>
           </div>
-          <div className="flex items-center">
-            <div>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+            <Link href="/cart">
               <svg
                 className="V3C5bO"
                 width="14"
@@ -134,6 +135,12 @@ const Header = () => {
                   fill="#fff"
                 ></path>
               </svg>
+              {productLength > 0 ? (
+                <div className="cart-length">{productLength}</div>
+              ) : (
+                ""
+              )}
+              </Link>
             </div>
             <div>
               <Link

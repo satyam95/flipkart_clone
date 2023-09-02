@@ -9,17 +9,21 @@ const ProductGallery = ({ images }: ImagesType) => {
   const [mainImage, setMainImage] = useState(images[0]);
 
   return (
-    <div className="flex items-center gap-6">
-      <div className="flex flex-col gap-3">
+    <div className="flex flex-col-reverse md:flex-row items-center gap-6">
+      <div className="flex flex-row md:flex-col gap-3 md:gap-3">
         {images.map((image, index) => (
-          <Image
+          <div
             key={index}
-            src={image}
-            alt={`image-${index}`}
-            height={200}
-            width={200}
-            onClick={() => setMainImage(image)}
-          />
+            className="relative w-[80px] h-[80px] md:h-[150px] md:w-[150px]"
+          >
+            <Image
+              src={image}
+              alt={`image-${index}`}
+              fill={true}
+              className="object-contain"
+              onClick={() => setMainImage(image)}
+            />
+          </div>
         ))}
       </div>
       <div className="relative w-full h-[300px] md:h-[400px]">
