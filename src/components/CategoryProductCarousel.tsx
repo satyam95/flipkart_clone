@@ -69,7 +69,7 @@ const CategoryProductCarousel = ({
           </Swiper>
         )}
       </div>
-      <div className="px-3 py-2 flex flex-wrap">
+      <div className="block md:hidden px-3 py-2 flex flex-wrap">
         {isLoading
           ? "Content is loading"
           : data!.products
