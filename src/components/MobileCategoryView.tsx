@@ -1,4 +1,4 @@
-import { getProducts } from "@/hooks/getProducts";
+import { GetProducts } from "@/hooks/getProducts";
 import React, { useState } from "react";
 import ProductGridView from "./ProductGridView";
 import ProductListView from "./ProductListView";
@@ -20,7 +20,7 @@ interface ProductType {
 }
 
 const MobileCategoryView = ({ slug }: { slug: string }) => {
-  const { data, isLoading } = getProducts(slug);
+  const { data, isLoading } = GetProducts(slug);
   const [gridView, setGridView] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [sortingOption, setSortingOption] = useState("");

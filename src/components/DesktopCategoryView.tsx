@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 
-import { getProducts } from "@/hooks/getProducts";
+import { GetProducts } from "@/hooks/getProducts";
 import Checkbox from "@/elements/Checkbox";
 
 import ProductGridView from "./ProductGridView";
@@ -23,7 +23,7 @@ interface ProductType {
 }
 
 const DesktopCategoryView = ({ slug }: { slug: string }) => {
-  const { data, isLoading } = getProducts(slug);
+  const { data, isLoading } = GetProducts(slug);
   const [gridView, setGridView] = useState(true);
   const [sortingOption, setSortingOption] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
