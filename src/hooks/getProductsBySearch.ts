@@ -19,7 +19,7 @@ interface ProductType {
     products: ProductType[];
   }
 
-export const getProductsBySearch = (searchTerm: string) => {
+export const GetProductsBySearch = (searchTerm: string) => {
   return useQuery({
     queryKey: [searchTerm],
     queryFn: async () => {

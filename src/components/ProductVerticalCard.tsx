@@ -21,7 +21,7 @@ const ProductVerticalCard = ({
 }: ProductCardPropsType) => {
   return (
     <>
-      <Link href={`/product/${id}`}>
+      <Link href={`/product/${id}`} passHref>
         <div className="p-2">
           <div className="relative w-full h-[150px] md:h-[180px]">
             <Image

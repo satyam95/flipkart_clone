@@ -23,7 +23,7 @@ const ProductHorizontalCard = ({
 }: ProductCardPropsType) => {
   return (
     <div className="p-6 border border-b">
-      <Link href={`/product/${id}`}>
+      <Link href={`/product/${id}`} passHref>
         <div className="flex items-center gap-6">
           <div className="w-full max-w-[250px]">
             <div className="relative w-full h-[150px] md:h-[180px]">

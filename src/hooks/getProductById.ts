@@ -15,7 +15,7 @@ interface ProductType {
   images: string[];
 }
 
-export const getProductById = (productId: number) => {
+export const GetProductById = (productId: number) => {
     return useQuery({
         queryKey: [productId],
         queryFn: async () => {

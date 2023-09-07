@@ -2,7 +2,7 @@
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ProductHorizontalCard from "@/components/ProductHorizontalCard";
-import { getProductsBySearch } from "@/hooks/getProductsBySearch";
+import { GetProductsBySearch } from "@/hooks/getProductsBySearch";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -10,7 +10,7 @@ const Search = () => {
   const search = useSearchParams();
   const searchQuery = search ? search.get("q") : null;
 
-  const { data, isLoading } = getProductsBySearch(searchQuery!);
+  const { data, isLoading } = GetProductsBySearch(searchQuery!);
 
   if (isLoading) return <LoadingSpinner />;
 

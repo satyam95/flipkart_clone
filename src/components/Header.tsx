@@ -21,7 +21,7 @@ const Header = () => {
         <div className="container max-w-[1024px] mx-auto py-2">
           <div className="flex items-center justify-between">
             <div>
-              <Link href="/">
+              <Link href="/" passHref>
                 <Image
                   src="/assets/flipkart.png"
                   height={45}
@@ -60,7 +60,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div>
-                  <Link href="/cart">
+                  <Link href="/cart" passHref>
                     <div className="relative flex items-center">
                       <div className="pr-2">
                         <svg
@@ -108,7 +108,7 @@ const Header = () => {
               </svg>
             </div>
             <div>
-              <Link href="/">
+              <Link href="/" passHref>
                 <Image
                   src="/assets/flipkart.png"
                   height={35}
@@ -121,7 +121,7 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-2">
             <div className="relative">
-            <Link href="/cart">
+            <Link href="/cart" passHref>
               <svg
                 className="V3C5bO"
                 width="14"

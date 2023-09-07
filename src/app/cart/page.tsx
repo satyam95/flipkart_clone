@@ -216,7 +216,7 @@ const Cart = () => {
                   Your cart is empty.
                 </div>
                 <div className="pt-4 flex justify-center">
-                  <Link href="/">
+                  <Link href="/" passHref>
                     <button className="bg-[#fb641b] px-10 py-4 rounded-sm shadow-[0_1px_2px_0_rgba(0,0,0,.2)]">
                       <div className="flex items-center">
                         <div className="font-medium text-base leading-5 text-white uppercase">

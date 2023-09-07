@@ -15,7 +15,7 @@ const CategoryCard = ({
 }: CategoryCardPropsType) => {
   return (
     <div>
-      <Link href={`/category/${slug}`}>
+      <Link href={`/category/${slug}`} passHref>
         <div className="text-center min-w-[70px]">
           <div className="mb-1 md:mb-2">
             <Image

@@ -5,13 +5,13 @@ import ProductGallery from "@/components/ProductGallery";
 
 import { useAppDispatch } from "@/app/store/hooks";
 import { addToCart } from "@/app/store/slices/cartSlice";
-import { getProductById } from "@/hooks/getProductById";
+import { GetProductById } from "@/hooks/getProductById";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useRouter } from "next/navigation";
 
 function Product({ params }: { params: { id: number } }) {
   const productId = params.id;
-  const { data, isLoading } = getProductById(productId);
+  const { data, isLoading } = GetProductById(productId);
 
   const dispatch = useAppDispatch();
   const router = useRouter()

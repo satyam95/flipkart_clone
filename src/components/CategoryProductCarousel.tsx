@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 import { Grid, Navigation } from "swiper/modules";
 
 import CategoryProductCarouselCard from "./CategoryProductCarouselCard";
-import { getProducts } from "@/hooks/getProducts";
+import { GetProducts } from "@/hooks/getProducts";
 import Link from "next/link";
 
 interface ProductCarouselTypes {
@@ -22,7 +22,7 @@ const CategoryProductCarousel = ({
   title,
   categorySlug,
 }: ProductCarouselTypes) => {
-  const { data, isLoading } = getProducts(categorySlug);
+  const { data, isLoading } = GetProducts(categorySlug);
   return (
     <div className="my-2 bg-white rounded">
       <div className="border-b border-[#0000001a]">
@@ -31,7 +31,7 @@ const CategoryProductCarousel = ({
             {title}
           </div>
           <div>
-            <Link href={`/category/${categorySlug}`}>
+            <Link href={`/category/${categorySlug}`} passHref>
               <button className="bg-[#2874f0] text-white shadow-[0_2px_4px_0_rgba(0,0,0,.2)] text-[13px] font-medium leading-4 px-5 py-3 uppercase rounded-sm">
                 View all
               </button>

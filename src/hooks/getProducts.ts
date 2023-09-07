@@ -19,7 +19,7 @@ interface ProductsType {
   products: ProductType[];
 }
 
-export const getProducts = (categorySlug: string) => {
+export const GetProducts = (categorySlug: string) => {
   return useQuery({
     queryKey: [categorySlug],
     queryFn: async () => {
